@@ -4,8 +4,8 @@
 
 .jumbotron{
 	/*padding: 1%;*/
-	background-color: #5cb85c;
-	color: #ffffff;
+	background-color: white;
+	color: darkblue;
 }
 
 #movies{
@@ -15,3 +15,8 @@
 div{
 	margin-bottom: 2%;
 }
+
+/* body {
+    background-image: url(..images/pixar-logo.png);
+    text-align: center;
+} */

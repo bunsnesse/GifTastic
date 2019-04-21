@@ -1,5 +1,5 @@
 $(document).ready(function () {
-	var movies = ["moulin rouge", "clueless", "mean girls", "drop dead fred", "breakfast at tiffanys", "cruel intentions", "donnie darko", "a night at the roxbury"];
+	var movies = ["toy story", "coco", "cars", "finding nemo", "inside out", "monsters inc", "the incredibles", "up"];
 
 	// Add buttons for original movies array
 	function renderButtons() {
@@ -21,7 +21,7 @@ $(document).ready(function () {
 	});
 
 
-	// Getting gifs from api... onto html
+	// connecting to api
 	$("button").on("click", function () {
 		var movie = $(this).attr("data-movie");
 		var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
@@ -45,37 +45,63 @@ $(document).ready(function () {
 				movieImg.attr("class", "gif");
 				movieDiv.append(p);
 				movieDiv.append(movieImg);
-				$("#movies").append(movieDiv);
+                $("#movies").append(movieDiv);
+                console.log(original_still)
 			}
 		});
-	});
+    });
+    
+    $(".gif").on("click", function() {
+      // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+      var state = $(this).attr("data-state");
+      // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+      // Then, set the image's data-state to animate
+      // Else set src to the data-still value
+      if (state === "still") {
+        $(this).attr("src", $(this).attr("data-animate"));
+        $(this).attr("data-state", "animate");
+      } else {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
+      }
+    });
 
-	function changeState(){
-		var state = $(this).attr("data-state");
-		var animateImage = $(this).attr("data-animate");
-		var stillImage = $(this).attr("data-still");
 
-		if (state == "still") {
-			$(this).attr("src", animateImage);
-			$(this).attr("data-state", "animate");
-		}
+	// function changeState(){
+	// 	var state = $(this).attr("data-state");
+	// 	var animateImage = $(this).attr("data-animate");
+	// 	var stillImage = $(this).attr("data-still");
 
-		else if (state == "animate") {
-			$(this).attr("src", stillImage);
-			$(this).attr("data-state", "still");
-		}
-	}
+	// 	if (state == "still") {
+	// 		$(this).attr("src", animateImage);
+	// 		$(this).attr("data-state", "animate");
+	// 	}
 
-	$("img").on("click", function() {
-		console.log("click worked!");
-		var src = movieImg.attr(src);
-		src = src.substring(0, src.length - 10);
-		src += ".url";
-		console.log(src);
-		movieImg.attr("src", src);
-	});
+	// 	else if (state == "animate") {
+	// 		$(this).attr("src", stillImage);
+	// 		$(this).attr("data-state", "still");
+	// 	}
+	// }
 
-	$(document).on("click", "#input", displayImg);
-	$(document).on("click", ".gif", changeState);
+	// $("img").on("click", function() {
+	// 	console.log("click worked!");
+	// 	var src = movieImg.attr(src);
+	// 	src = src.substring(0, src.length - 10);
+	// 	src += ".url";
+	// 	console.log(src);
+	// 	movieImg.attr("src", src);
+    // });
+    
+        //   // Else set src to the data-still value
+        //   if (state === "still") {
+        //     $(this).attr("src", $(this).attr("data-animate"));
+        //     $(this).attr("data-state", "animate");
+        //   } else {
+        //     $(this).attr("src", $(this).attr("data-still"));
+    //     //     $(this).attr("data-state", "still");
+    
+
+	// $(document).on("click", "#input", displayImg);
+	// $(document).on("click", ".gif", changeState);
 
 });
