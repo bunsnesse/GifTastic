@@ -1,107 +1,87 @@
-$(document).ready(function () {
-	var movies = ["toy story", "coco", "cars", "finding nemo", "inside out", "monsters inc", "the incredibles", "up"];
+$(document).ready(function(){
 
-	// Add buttons for original movies array
-	function renderButtons() {
-		$("#movie-buttons").empty();
-		for (i = 0; i < movies.length; i++) {
-			$("#movie-buttons").append("<button class='btn btn-success' data-movie='" + movies[i] + "'>" + movies[i] + "</button>");
-		}
-	}
+    var displayedButtons = ["Harry Potter", "Hermione Granger", "Ron Weasley"];
 
-	renderButtons();
+    function displayImg(){
 
-	// Adding a button for movie entered
-	$("#add-movie").on("click", function () {
-		event.preventDefault();
-		var movie = $("#movie-input").val().trim();
-		movies.push(movie);
-		renderButtons();
-		return;
-	});
+        $("#display-images").empty();
+        var input = $(this).attr("data-name");
+        var limit = 10;
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + input + "&limit=" + limit + "&api_key=dc6zaTOxFJmzC";   
 
+        $.ajax({
+            url: queryURL, 
+            method: "GET"
+        }).done(function(response) {
 
-	// connecting to api
-	$("button").on("click", function () {
-		var movie = $(this).attr("data-movie");
-		var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-			movie + "&api_key=dc6zaTOxFJmzC&limit=10"
+            for(var i = 0; i < limit; i++) {    
 
-		$.ajax({
-			url: queryURL,
-			method: "GET"
-		}).done(function (response) {
-			var results = response.data;
-			$("#movies").empty();
-			for (var i = 0; i < results.length; i++) {
-				var movieDiv = $("<div>");
-				var p = $("<p>").text("Rating: " + results[i].rating);
-				var movieImg = $("<img>");
+                var displayDiv = $("<div>");
+                displayDiv.addClass("holder");
+            
+                var image = $("<img>");
+                image.attr("src", response.data[j].images.original_still.url);
+                image.attr("data-still", response.data[j].images.original_still.url);
+                image.attr("data-animate", response.data[j].images.original.url);
+                image.attr("data-state", "still");
+                image.attr("class", "gif");
+                displayDiv.append(image);
 
-				movieImg.attr("src", results[i].images.original_still.url);
-				movieImg.attr("data-still", results[i].images.original_still.url);
-				movieImg.attr("data-animate", results[i].images.original.url);
-				movieImg.attr("data-state", "still");
-				movieImg.attr("class", "gif");
-				movieDiv.append(p);
-				movieDiv.append(movieImg);
-                $("#movies").append(movieDiv);
-                console.log(original_still)
-			}
-		});
-    });
-    
-    $(".gif").on("click", function() {
-      // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
-      var state = $(this).attr("data-state");
-      // If the clicked image's state is still, update its src attribute to what its data-animate value is.
-      // Then, set the image's data-state to animate
-      // Else set src to the data-still value
-      if (state === "still") {
-        $(this).attr("src", $(this).attr("data-animate"));
-        $(this).attr("data-state", "animate");
-      } else {
-        $(this).attr("src", $(this).attr("data-still"));
-        $(this).attr("data-state", "still");
-      }
-    });
+                var rating = response.data[j].rating;
+                console.log(response);
+                var pRating = $("<p>").text("Rating: " + rating);
+                displayDiv.append(pRating)
 
+                $("#display-images").append(displayDiv);
+            }
+        });
+    }
 
-	// function changeState(){
-	// 	var state = $(this).attr("data-state");
-	// 	var animateImage = $(this).attr("data-animate");
-	// 	var stillImage = $(this).attr("data-still");
+    function renderButtons(){ 
 
-	// 	if (state == "still") {
-	// 		$(this).attr("src", animateImage);
-	// 		$(this).attr("data-state", "animate");
-	// 	}
+        $("#display-buttons").empty();
 
-	// 	else if (state == "animate") {
-	// 		$(this).attr("src", stillImage);
-	// 		$(this).attr("data-state", "still");
-	// 	}
-	// }
+        for (var i = 0; i < displayedButtons.length; i++){
 
-	// $("img").on("click", function() {
-	// 	console.log("click worked!");
-	// 	var src = movieImg.attr(src);
-	// 	src = src.substring(0, src.length - 10);
-	// 	src += ".url";
-	// 	console.log(src);
-	// 	movieImg.attr("src", src);
-    // });
-    
-        //   // Else set src to the data-still value
-        //   if (state === "still") {
-        //     $(this).attr("src", $(this).attr("data-animate"));
-        //     $(this).attr("data-state", "animate");
-        //   } else {
-        //     $(this).attr("src", $(this).attr("data-still"));
-    //     //     $(this).attr("data-state", "still");
-    
+            var newButton = $("<button>") 
+            newButton.attr("class", "btn btn-default");
+            newButton.attr("id", "input")  
+            newButton.attr("data-name", displayedButtons[i]); 
+            newButton.text(displayedButtons[i]); 
+            $("#display-buttons").append(newButton); 
+        }
+    }
 
-	// $(document).on("click", "#input", displayImg);
-	// $(document).on("click", ".gif", changeState);
+    function imageChangeState() {          
 
+        var state = $(this).attr("data-state");
+        var animateImage = $(this).attr("data-animate");
+        var stillImage = $(this).attr("data-still");
+
+        if(state == "still") {
+            $(this).attr("src", animateImage);
+            $(this).attr("data-state", "animate");
+        }
+
+        else if(state == "animate") {
+            $(this).attr("src", stillImage);
+            $(this).attr("data-state", "still");
+        }   
+    }
+
+    $("#submitPress").on("click", function(){
+
+        var input = $("#user-input").val().trim();
+        form.reset();
+        displayedButtons.push(input);
+                
+        renderButtons();
+
+        return false;
+    })
+
+    renderButtons();
+
+    $(document).on("click", "#input", displayImg);
+    $(document).on("click", ".gif", imageChangeState);
 });
