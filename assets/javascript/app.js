@@ -1,5 +1,5 @@
-    
 $(document).ready(function () {
+    
 	var movies = ["toy story", "coco", "finding nemo", "inside out", "the incredibles", "up"];
 
 	// Add buttons for original movies array
@@ -51,7 +51,7 @@ $(document).ready(function () {
 			}
 		});
     });
-    
+
     $(".gif").on("click", function() {
       // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
       var state = $(this).attr("data-state");
@@ -92,7 +92,7 @@ $(document).ready(function () {
 	// 	console.log(src);
 	// 	movieImg.attr("src", src);
     // });
-    
+
         //   // Else set src to the data-still value
         //   if (state === "still") {
         //     $(this).attr("src", $(this).attr("data-animate"));
@@ -100,9 +100,8 @@ $(document).ready(function () {
         //   } else {
         //     $(this).attr("src", $(this).attr("data-still"));
     //     //     $(this).attr("data-state", "still");
-    
+
 
 	// $(document).on("click", "#input", displayImg);
 	// $(document).on("click", ".gif", changeState);
 
-});
