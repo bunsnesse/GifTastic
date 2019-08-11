@@ -1,32 +1,23 @@
-button, div, form, input {
-	margin: 5px;
+    
+/* .container{
+	padding-top: 5%;
+} */
+
+.jumbotron{
+	/*padding: 1%;*/
+	background-color: white;
+	color: darkblue;
 }
 
-img {
-	max-width: 200px;
-	max-height: 200px;
+#movies{
+	padding: 3%;
 }
 
-label {
-    color: #fff;
+div{
+	margin-bottom: 2%;
 }
 
-.btn-default {
-    color: #000;
-    font-size: medium;
-}
-
-body {
-	background-image: url("../images/Pixar-logo.png");
-    font-family: 'Bad Script';
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.holder {
-    float: left;
-}
-
-.jumbotron {
+/* body {
+    background-image: url(..images/pixar-logo.png);
     text-align: center;
-}
+} */
