@@ -8,7 +8,8 @@ img {
 }
 
 label {
-    color: #fff;
+    color: black;
+    font-size: large;
 }
 
 .btn-default {

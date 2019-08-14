@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    var displayedButtons = ["Inside Out", "Up", "Moana"];
+    var displayedButtons = ["Inside Out", "Up", "Moana", "Finding Nemo", "The Incredibles"];
 
     function displayImg(){
 
